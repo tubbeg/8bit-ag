@@ -2,8 +2,15 @@ import pyxel # type: ignore
 
 
 def quit_game ():
-    return pyxel.btnp(pyxel.KEY_ESCAPE) or pyxel.btnp(pyxel.KEY_Q)
+    if pyxel.btnp(pyxel.KEY_ESCAPE) or pyxel.btnp(pyxel.KEY_Q):
+        pyxel.quit()
 
+def move_image():
+    global mloc
+    if pyxel.btnp(pyxel.MOUSE_BUTTON_LEFT):
+        mloc = (pyxel.mouse_x, pyxel.mouse_y)
+    (x,y) = mloc
+    pyxel.blt(x,y,0, 0,0, 15,15, 0, 180)
 
 # blt(x, y, img, u, v, w, h, [colkey], [rotate], [scale])
 # x y is the position in your game
@@ -24,13 +31,14 @@ class App:
 
     def update(self):
         self.x = (self.x + 1) % pyxel.width
-        if quit_game():
-            pyxel.quit()
+        quit_game()
 
     def draw(self):
     
         pyxel.cls(12)
         pyxel.rect(10, 10, 20, 30, 25)
-        pyxel.blt(15,15,0, 0,0, 15,15, 0, 180)
+        move_image()
 
+
+mloc = (0,0)
 App()
