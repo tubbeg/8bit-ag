@@ -1,5 +1,5 @@
-import pyxel # type: ignore
-
+import pyxel 
+import esper 
 
 def quit_game ():
     if pyxel.btnp(pyxel.KEY_ESCAPE) or pyxel.btnp(pyxel.KEY_Q):
@@ -22,21 +22,33 @@ def move_image():
 # rotation in degrees
 # scale up to 1.0 (100 %)
 
+
+#bltm(x, y, tm, u, v, w, h, [colkey], [rotate], [scale])
+
+
+# so it seems that I can't load multiple resource files
+# i think it just switches between resources
+# so you can only use 1 resource per scene as far as I know.
+# It's a limitation for sure...but that's not necessarily a bad thing
+
+
+# Now that I have figured out how to use simple tilemaps and sprites,
+# it should be fairly easy to employ esper Entity Component System
+
 class App:
     def __init__(self):
         pyxel.init(160, 120)
-        pyxel.load("./res.pyxres")
+        pyxel.load("./assets.pyxres")
         self.x = 0
+        #self.my_player = PlayerSprite()
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        self.x = (self.x + 1) % pyxel.width
         quit_game()
 
     def draw(self):
-    
-        pyxel.cls(12)
-        pyxel.rect(10, 10, 20, 30, 25)
+        pyxel.cls(3)
+        pyxel.bltm(0,0,0,0,0,128,128)
         move_image()
 
 
